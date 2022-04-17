@@ -10,6 +10,7 @@ f = open("../files/naver_movie_code.txt", 'r', encoding="UTF-8")
 
 num = 0
 movie_codes = []
+movie_names = []
 
 while True:
   temp = f.readline().split('\n')[0]
@@ -19,6 +20,8 @@ while True:
 
   if num % 2 == 1:
     movie_codes.append(temp)
+  else:
+    movie_names.append(temp)
 
   num = num + 1
 
@@ -35,6 +38,8 @@ for cnt in range(len(movie_codes)):
 
   review_num = int(int(soup.find("strong", attrs={"class":re.compile("c_88 fs_11")}).text) / 10) + 1
 
+  f.write(movie_names[cnt] + '\n')
+
   for num in range(1, review_num + 1):
     url = "https://movie.naver.com/movie/point/af/list.naver?st=mcode&sword=" + movie_codes[cnt] + "&target=after&page=" + str(num)
 
@@ -48,7 +53,8 @@ for cnt in range(len(movie_codes)):
     for j in range(len(reviews)):
       data = reviews[j].find("td", attrs={"class":re.compile("title")})
       
-      #  f.write(data.find("a", attrs={"class":re.compile("movie color_b")}).text + '\n')
+      # f.write(data.find("a", attrs={"class":re.compile("movie color_b")}).text + '\n')
+      
       f.write(data.find('em').text + ',')
 
       temp = data.find("a", attrs={"class":re.compile("report")})['onclick']
