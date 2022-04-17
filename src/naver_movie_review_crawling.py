@@ -53,8 +53,6 @@ for cnt in range(len(movie_codes)):
     for j in range(len(reviews)):
       data = reviews[j].find("td", attrs={"class":re.compile("title")})
       
-      # f.write(data.find("a", attrs={"class":re.compile("movie color_b")}).text + '\n')
-      
       f.write(data.find('em').text + ',')
 
       temp = data.find("a", attrs={"class":re.compile("report")})['onclick']
