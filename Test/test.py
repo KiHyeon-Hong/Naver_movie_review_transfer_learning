@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+p = re.compile('(\', \')')
+
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"}
 
 f = open("../files/naver_movie_code.txt", 'r', encoding="UTF-8")
@@ -57,8 +59,18 @@ for cnt in range(len(movie_codes)):
       try:
         data = reviews[j].find("td", attrs={"class":re.compile("title")})
 
+        temp = data.find("a", attrs={"class":re.compile("report")})['onclick']
+        review = []
+
+        while True:
+          try:
+            review.append(temp[:p.search(temp).span()[1]])
+            temp = temp[p.search(temp).span()[1]:]
+          except:
+            break
+
         f.write(data.find('em').text + ',')
-        f.write(reviews[j].text.split('\n')[7].strip() + '\n')
+        f.write(''.join(review[2:-1])[:-4] + '\n')
       except:
         continue
 
