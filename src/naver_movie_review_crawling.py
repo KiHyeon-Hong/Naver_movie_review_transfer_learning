@@ -28,7 +28,9 @@ while True:
 f.close()
 
 for cnt in range(len(movie_codes)):
-  f = open("../reviews/naver_movie_review_" + movie_codes[cnt] + ".txt", 'w', encoding="UTF-8")
+  print(movie_names[cnt] + '   ' + movie_codes[cnt])
+
+  f = open("../reviews/naver_movie_review_" + str(cnt + 1) + "_" + movie_codes[cnt] + ".txt", 'w', encoding="UTF-8")
 
   url = "https://movie.naver.com/movie/point/af/list.naver?st=mcode&sword=" + movie_codes[cnt] + "&target=after"
   res = requests.get(url, headers=headers)
@@ -37,6 +39,9 @@ for cnt in range(len(movie_codes)):
   soup = BeautifulSoup(res.text, "lxml")
 
   review_num = int(int(soup.find("strong", attrs={"class":re.compile("c_88 fs_11")}).text) / 10) + 1
+
+  if review_num > 1000:
+    review_num = 1000
 
   f.write(movie_names[cnt] + '\n')
 
