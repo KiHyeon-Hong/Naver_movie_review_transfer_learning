@@ -1,13 +1,8 @@
-from selenium import webdriver
-from time import sleep
-from bs4 import BeautifulSoup
+import googletrans
 
-browser = webdriver.Chrome("../chromdriver/chromedriver.exe")
-browser.maximize_window()
+translator = googletrans.Translator()
 
-browser.get("https://papago.naver.com/")
-
-f = open("../files/naver_movie_code.txt", 'r', encoding="UTF-8")
+f = open("./files/naver_movie_code.txt", 'r', encoding="UTF-8")
 
 num = 0
 movie_codes = []
@@ -28,24 +23,22 @@ while True:
 
 f.close()
 
-movie_codes = movie_codes[300:400]
-movie_names = movie_names[300:400]
+movie_codes = movie_codes[600:800]
+movie_names = movie_names[600:800]
 
-sleep(5)
 
 for cnt in range(len(movie_codes)):
-  
-  f = open("../reviews/naver_movie_review_" + str(cnt + 301) + "_" + movie_codes[cnt] + ".txt", 'r', encoding="UTF-8")
+  f = open("./reviews/naver_movie_review_" + str(cnt + 601) + "_" + movie_codes[cnt] + ".txt", 'r', encoding="UTF-8")
 
   reviews = f.read().split('\n')[1:-1]
   f.close()
 
-  f = open("../translation/naver_movie_review_" + str(cnt + 301) + "_" + movie_codes[cnt] + ".txt", 'w', encoding="UTF-8")
+  f = open("./translation/naver_movie_review_" + str(cnt + 601) + "_" + movie_codes[cnt] + ".txt", 'w', encoding="UTF-8")
   f.write(movie_names[cnt] + '\n')
   f.close()
 
   for i in range(len(reviews)):
-    f = open("../translation/naver_movie_review_" + str(cnt + 301) + "_" + movie_codes[cnt] + ".txt", 'a', encoding="UTF-8")
+    f = open("./translation/naver_movie_review_" + str(cnt + 601) + "_" + movie_codes[cnt] + ".txt", 'a', encoding="UTF-8")
 
     review = reviews[i].split(',')
     review[1] = ','.join(review[1:])
@@ -63,24 +56,14 @@ for cnt in range(len(movie_codes)):
       f.close()
       continue
 
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label").click()
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label").send_keys(review[1])
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[4]/div/button").click()
-    
-    sleep(5)
-
-    soup = BeautifulSoup(browser.page_source, "lxml")
-    result = soup.find("div", attrs={"id":"txtTarget"}).find("span").text
+    result = translator.translate(review[1], src='ko', dest='en')
 
     print('평점: ' + review[0])
     print('한글 리뷰: ' + review[1])
-    print('영어 리뷰: ' + result)
+    print('영어 리뷰: ' + result.text)
     print()
 
     f.write(review[0] + ',')
-    f.write(result + '\n')
-
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label/textarea").click()
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label/textarea").clear()
+    f.write(result.text + '\n')
   
     f.close()
