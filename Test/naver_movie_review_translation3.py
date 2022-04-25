@@ -2,7 +2,7 @@ import googletrans
 
 translator = googletrans.Translator()
 
-f = open("./files/naver_movie_code.txt", 'r', encoding="UTF-8")
+f = open("../files/naver_movie_code.txt", 'r', encoding="UTF-8")
 
 num = 0
 movie_codes = []
@@ -28,17 +28,17 @@ movie_names = movie_names[400:600]
 
 
 for cnt in range(len(movie_codes)):
-  f = open("./reviews/naver_movie_review_" + str(cnt + 401) + "_" + movie_codes[cnt] + ".txt", 'r', encoding="UTF-8")
+  f = open("../reviews/naver_movie_review_" + str(cnt + 401) + "_" + movie_codes[cnt] + ".txt", 'r', encoding="UTF-8")
 
   reviews = f.read().split('\n')[1:-1]
   f.close()
 
-  f = open("./translation/naver_movie_review_" + str(cnt + 401) + "_" + movie_codes[cnt] + ".txt", 'w', encoding="UTF-8")
+  f = open("../translation/naver_movie_review_" + str(cnt + 401) + "_" + movie_codes[cnt] + ".txt", 'w', encoding="UTF-8")
   f.write(movie_names[cnt] + '\n')
   f.close()
 
   for i in range(len(reviews)):
-    f = open("./translation/naver_movie_review_" + str(cnt + 401) + "_" + movie_codes[cnt] + ".txt", 'a', encoding="UTF-8")
+    f = open("../translation/naver_movie_review_" + str(cnt + 401) + "_" + movie_codes[cnt] + ".txt", 'a', encoding="UTF-8")
 
     review = reviews[i].split(',')
     review[1] = ','.join(review[1:])
