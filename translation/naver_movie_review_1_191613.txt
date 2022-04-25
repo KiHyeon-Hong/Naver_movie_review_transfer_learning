@@ -1,15 +1,5 @@
 클라우스
-10,The appearance of adults who are happy while looking at the appearance of children.
-10,I watched the time.
-9,A movie that warms your heart
-10,Perfect, perfect, perfect, perfect
-10,If you are looking for a touching movie that will warm your heart, you came to you exactly.
-10,Take a look at the values you have to pursue.
-10,I want to rest for a while when I feel a good movie that reminds me of a good movie, I am a good movie that I want to make a good movie.It was!I love you all the people ~ ~ I can see that someone is in love with you.I will stay in a memorable memory that will be in this way!I know that the meaning of the movie ~ ~ is another interpretation.
-7,warm
-10,Just go up and go down...
-10,Now _ **** Right is Super Junior Eunhyuk !!Recommended movie!I really have fun!
-10,Super Junior Eunhyuk's movie is recommended ~ It's so fun>
-10,Movie recommended by Sushu Eunhyuk !!Sujeemle Fairy Tale and Park Bak are written without knowing to be a person these days, so please understand it as the best movie in life.
-10,Shuju Eunhyuk brother recommended movie!Fully Nuclear Honey Jam !!I can not find concentric memories again.I once again made a movie that makes Santa's existence.My life is the best christmas movie!
-10,It is recommended by Eunhyuk Honey Jam
+10,Adults who are happy seeing their children happy.
+10,A movie that touched my heart after watching it
+10,Perfect, perfect, perfect.Perfection
+10,If you're looking for a touching movie that will warm your heart, you've come to me exactly.

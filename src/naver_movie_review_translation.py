@@ -28,9 +28,6 @@ while True:
 
 f.close()
 
-movie_codes = movie_codes[:100]
-movie_names = movie_names[:100]
-
 sleep(5)
 
 for cnt in range(len(movie_codes)):
@@ -45,42 +42,45 @@ for cnt in range(len(movie_codes)):
   f.close()
 
   for i in range(len(reviews)):
-    f = open("../translation/naver_movie_review_" + str(cnt + 1) + "_" + movie_codes[cnt] + ".txt", 'a', encoding="UTF-8")
+    try:
+      f = open("../translation/naver_movie_review_" + str(cnt + 1) + "_" + movie_codes[cnt] + ".txt", 'a', encoding="UTF-8")
 
-    review = reviews[i].split(',')
-    review[1] = ','.join(review[1:])
-    review = review[:2]
+      review = reviews[i].split(',')
+      review[1] = ','.join(review[1:])
+      review = review[:2]
 
-    if review[1] == '':
+      if review[1] == '':
+        print('평점: ' + review[0])
+        print('한글 리뷰: ' + review[1])
+        print('영어 리뷰: ' + review[1])
+        print()
+
+        f.write(review[0] + ',')
+        f.write(review[1] + '\n')
+
+        f.close()
+        continue
+
+      browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label").click()
+      browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label").send_keys(review[1])
+      browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[4]/div/button").click()
+    
+      sleep(5)
+
+      soup = BeautifulSoup(browser.page_source, "lxml")
+      result = soup.find("div", attrs={"id":"txtTarget"}).find("span").text
+
       print('평점: ' + review[0])
       print('한글 리뷰: ' + review[1])
-      print('영어 리뷰: ' + review[1])
+      print('영어 리뷰: ' + result)
       print()
 
       f.write(review[0] + ',')
-      f.write(review[1] + '\n')
+      f.write(result + '\n')
 
-      f.close()
-      continue
-
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label").click()
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label").send_keys(review[1])
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[4]/div/button").click()
-    
-    sleep(5)
-
-    soup = BeautifulSoup(browser.page_source, "lxml")
-    result = soup.find("div", attrs={"id":"txtTarget"}).find("span").text
-
-    print('평점: ' + review[0])
-    print('한글 리뷰: ' + review[1])
-    print('영어 리뷰: ' + result)
-    print()
-
-    f.write(review[0] + ',')
-    f.write(result + '\n')
-
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label/textarea").click()
-    browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label/textarea").clear()
+      browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label/textarea").click()
+      browser.find_element_by_xpath("/html/body/div/div/div[1]/section/div/div[1]/div[1]/div/div[3]/label/textarea").clear()
   
-    f.close()
+      f.close()
+    except:
+      f.close()
