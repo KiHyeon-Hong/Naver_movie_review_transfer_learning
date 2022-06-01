@@ -1,4 +1,6 @@
 chromdriver/
-files/neg/
-files/pos/
+files/neg_test/
+files/pos_test/
+files/neg_train/
+files/pos_train/
 files/amazonTemplate.txt
