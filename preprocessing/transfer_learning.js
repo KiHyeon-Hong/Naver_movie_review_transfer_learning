@@ -440,5 +440,5 @@ const fs = require('fs');
 fs.writeFileSync(__dirname + '/../datas/Transfer_learning.csv', 'accuracy,loss,val_accuracy,val_loss\n', 'utf8');
 
 for (let i = 0; i < accuracy.length; i++) {
-  fs.appendFileSync(__dirname + '/../datas/Transfer_learning.csv', `${accuracy[i] + 0.1},${loss[i] - 0.1},${val_accuracy[i] + 0.1},${val_loss[i] - 0.1}\n`, 'utf8');
+  fs.appendFileSync(__dirname + '/../datas/Transfer_learning.csv', `${accuracy[i]},${loss[i]},${val_accuracy[i]},${val_loss[i]}\n`, 'utf8');
 }
